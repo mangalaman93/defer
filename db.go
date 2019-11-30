@@ -3,6 +3,8 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"os"
+
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -25,6 +27,8 @@ func createTable(db *sql.DB) error {
 }
 
 func main() {
+	os.Remove("priv/sqlite.db")
+
 	db, err := sql.Open("sqlite3", "priv/sqlite.db")
 	if err != nil {
 		panic(err)

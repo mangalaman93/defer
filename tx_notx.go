@@ -12,6 +12,17 @@ import (
 	"github.com/coreos/etcd/client"
 )
 
+/*
+Run etcd
+./etcd -name etcd0 -data-dir data/0/ -advertise-client-urls http://127.0.0.1:2379 \
+ -listen-client-urls http://127.0.0.1:2379 \
+ -initial-advertise-peer-urls http://127.0.0.1:2380 \
+ -listen-peer-urls http://127.0.0.1:2380 \
+ -initial-cluster-token etcd-cluster \
+ -initial-cluster etcd0=http://127.0.0.1:2380 \
+ -initial-cluster-state new
+*/
+
 const (
 	cCinderConfForNimble = "{\"san_ip\":\"10.23.0.1\",\"san_login\":\"nimble\",\"san_password\":\"nimble123\",\"volume_backend_name\":\"nimble_onprem\"}"
 )

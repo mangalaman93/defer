@@ -9,21 +9,21 @@ import (
 )
 
 var (
-	ErrFailedBilling      = errors.New("error in billing customer")
-	ErrFailedNotification = errors.New("error in notifying customer")
+	errFailedBilling      = errors.New("error in billing customer")
+	errFailedNotification = errors.New("error in notifying customer")
 
 	randSrc = rand.New(rand.NewSource(time.Now().UnixNano()))
 )
 
-type Customer struct {
+type customer struct {
 	mutex   sync.Mutex
 	balance int
 }
 
-func (c *Customer) Bill(amount int) error {
-	//if randSrc.Intn(100) < 50 {
-	//	return ErrFailedBilling
-	//}
+func (c *customer) Bill(amount int) error {
+	// if randSrc.Intn(100) < 50 {
+	// 	return errFailedBilling
+	// }
 
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
@@ -33,16 +33,16 @@ func (c *Customer) Bill(amount int) error {
 	return nil
 }
 
-func (c *Customer) Notify() error {
-	//if randSrc.Intn(100) < 50 {
-	//	return ErrFailedNotification
-	//}
+func (c *customer) Notify() error {
+	// if randSrc.Intn(100) < 50 {
+	// 	return errFailedNotification
+	// }
 
 	fmt.Println("customer has been notified")
 	return nil
 }
 
-func BillCustomer(c *Customer, amount int) {
+func billCustomer(c *customer, amount int) {
 	if err := c.Bill(amount); err != nil {
 		fmt.Println("unable to bill customer ::", err)
 		return
@@ -57,10 +57,12 @@ func BillCustomer(c *Customer, amount int) {
 }
 
 func main() {
-	customer := &Customer{balance: 1000}
-	go BillCustomer(customer, 100)
-	go BillCustomer(customer, 200)
-	go BillCustomer(customer, 400)
+	customer := &customer{balance: 1000}
+	fmt.Println("initial balance: $", customer.balance)
+
+	go billCustomer(customer, 100)
+	go billCustomer(customer, 200)
+	go billCustomer(customer, 400)
 	time.Sleep(1 * time.Second)
-	fmt.Println("final balance:", customer.balance)
+	fmt.Println("final balance: $", customer.balance)
 }

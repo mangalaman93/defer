@@ -11,6 +11,7 @@ func f() {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Println("Recovered in f", r)
+			panic("panic inside recover")
 		}
 	}()
 	fmt.Println("Calling g.")

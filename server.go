@@ -73,6 +73,6 @@ func main() {
 	server.Addr = fmt.Sprintf(":%d", cPort)
 	server.Handler = router
 
-	log.Println("[INFO] running zserver on port:", cPort)
+	log.Println("[INFO] running server on port:", cPort)
 	server.ListenAndServe()
 }

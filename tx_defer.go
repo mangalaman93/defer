@@ -35,9 +35,8 @@ func restartCinderService() error {
 }
 
 func writeToFile(filepath string, data []byte) error {
-	if randSource.Intn(100) < 101 {
-		return ErrWritingToFile
-	}
+
+	return ErrWritingToFile
 
 	err := ioutil.WriteFile(filepath, data, os.ModePerm)
 	if err != nil {
